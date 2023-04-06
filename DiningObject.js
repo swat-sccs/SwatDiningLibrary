@@ -4,7 +4,6 @@ async function Get(url) {
     return await (await fetch(url)).json();
 };
 
-
 function objectifier(venue, html) {
     const ret = {};
     switch (venue) {
@@ -98,7 +97,6 @@ function objectifier(venue, html) {
 
 export function DiningObject(){
     var result = {};
-
     Get(url).then(data =>{
         // console.log(data)
         const dc = data.dining_center
@@ -112,7 +110,7 @@ export function DiningObject(){
         var KohlbergObject = {};
 
         for(let menu of dc){
-            DiningCenterObject[menu.title] = objectifier('sharples', menu.html_description);
+            DiningCenterObject[menu.title.toLowerCase()] = objectifier('sharples', menu.html_description);
         };
         EssiesObject = objectifier('essies', es.description);
         // ScienceCenterObject = objectifier('science_center', sc.html_description);
@@ -124,5 +122,4 @@ export function DiningObject(){
         result["Kohlberg"] = KohlbergObject;
     });
     return result;
-
 };
