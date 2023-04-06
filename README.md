@@ -8,17 +8,21 @@ To use the library, download the library into the working directory. Next,
 import the function into your file by adding the following line at the top of
 your code file:
 
-'''
+
+```
 import { DiningObject } from "./DiningObject.js";
-'''
+```
+
 
 You will now be able to access the Dining object by calling the command and 
 storing the object in a variable to work with like so:
 
-'''
+
+```
 const myObj = DiningObject();
 await new Promise(r => setTimeout(r, 150));
-'''
+```
+
 
 The object takes some time to load in before accessing, so the line below is 
 essentially a "sleep()" function for 150ms. You can modify the milliseconds
@@ -28,9 +32,11 @@ If you have a solution, *please* help me out!)
 
 For example, you can access the Dining Center lunch menu like so:
 
-'''
+
+```
 const diningCenterMenu = myObj['Dining Center'].lunch;
 console.log(diningCenterMenu);
-'''
+```
+
 
 For a full detailed example, see './importExample.js'.
