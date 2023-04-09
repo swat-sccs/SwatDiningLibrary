@@ -96,8 +96,9 @@ function objectifier(venue, html) {
 };
 
 export function DiningObject(){
-    var result = {};
-    Get(url).then(data =>{
+    return Get(url).then(data =>{
+        const result = {}
+
         // console.log(data)
         const dc = data.dining_center
         const es = data.essies[0]
@@ -133,7 +134,7 @@ export function DiningObject(){
         result["Essies"] = EssiesObject;
         // result["Science Center"] = ScienceCenterObject;
         result["Kohlberg"] = KohlbergObject;
-    });
 
-    return result;
+        return result
+    });
 };

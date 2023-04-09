@@ -25,18 +25,10 @@ storing the object in a variable to work with like so:
 
 
 ```
-const myObj = DiningObject();
-await new Promise(r => setTimeout(r, 150));
+const myObj = await DiningObject();
 ```
 
-
-The object takes some time to load in before accessing, so the line below is 
-essentially a "sleep()" function for 150ms. You can modify the milliseconds
-by editing the '150' number as needed. (I know this is incredibly scuffed but
-I've tried all other await/async functions and nothing but this seems to work;
-If you have a solution, *please* help me out!)
-
-For example, you can access the Dining Center lunch menu like so:
+You can access the Dining Center lunch menu like so:
 
 
 ```
