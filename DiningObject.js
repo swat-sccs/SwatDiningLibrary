@@ -95,7 +95,7 @@ function objectifier(venue, html) {
 
 };
 
-export function DiningObject(){
+export async function DiningObject(){
     return Get(url).then(data =>{
         const result = {}
 

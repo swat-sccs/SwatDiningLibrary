@@ -1,4 +1,8 @@
 # Swat Dining Object
+Version: v1.3.0
+
+Big thank you to Jesse Li for helping for "unscuffing" v1.2.0!
+
 Allows users to get information in a better JSON format than the one currently 
 given by Swarthmore's Dining API. All menu items will be turned into individual 
 objects with properties including allergy tags, dietary restrictions, menu type,
