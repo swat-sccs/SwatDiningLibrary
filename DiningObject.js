@@ -28,7 +28,7 @@ function objectifier(venue, html) {
                     const properties = item.match(/::(.*?)::/g) || [];
                     return {
                         item: item.replace(/::(.*?)::/g, '').trim(),
-                        properties: properties.map(prop => prop.replace(/::/g, '').trim())
+                        properties: properties.map(prop => prop.replace(/::/g, '').replace(/ /g, '').trim())
                     }
                 }).sort((a, b) => {
                     const aScore = entreeKeywords.filter(keyword => a.item.toLowerCase().includes(keyword)).length;
@@ -109,17 +109,31 @@ export function DiningObject(){
         // var ScienceCenterObject = {};
         var KohlbergObject = {};
 
-        for(let menu of dc){
-            DiningCenterObject[menu.title.toLowerCase()] = objectifier('sharples', menu.html_description);
-        };
-        EssiesObject = objectifier('essies', es.description);
+        if(dc){
+            for(let menu of dc){
+                let title = menu.title.toLowerCase()
+                let time = menu.short_time.split(' ').filter(x => x !== '-');
+                DiningCenterObject[title] = objectifier('sharples', menu.html_description);
+                DiningCenterObject[title]['start'] = time[0];
+                DiningCenterObject[title]['end'] = time[1];
+            };
+        }
+
+        if(es){
+            EssiesObject = objectifier('essies', es.description);
+        }
+
         // ScienceCenterObject = objectifier('science_center', sc.html_description);
-        KohlbergObject = objectifier('kohlberg', kb.html_description);
+        
+        if(kb){
+            KohlbergObject = objectifier('kohlberg', kb.html_description);
+        }
 
         result["Dining Center"] = DiningCenterObject;
         result["Essies"] = EssiesObject;
         // result["Science Center"] = ScienceCenterObject;
         result["Kohlberg"] = KohlbergObject;
     });
+
     return result;
 };
