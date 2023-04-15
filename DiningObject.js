@@ -71,18 +71,19 @@ function objectifier(venue, html) {
             const KBSoup = KBSoupMatch ? KBSoupMatch[1].trim() : null;
             ret['soup'] = KBSoup;
 
-            const menuMatch = html.match(/<u><\/u>(.+?)<u><\/u>/g);
+            // const menuMatch = html.match(/<u><\/u>(.+?)<u><\/u>/g); //(old)
+            const menuMatch = html.match(/menu\s+<\/b>(.+)/gi);
+            // console.log(menuMatch)
             if (menuMatch) {
-                const items = menuMatch[1].split('<br>').map(item => item.trim());
-
-                const menuItems = items.slice(1).map(item => {
+                const items = menuMatch[0].split('<br>').map(item => item.trim());
+                const menuItems = items.slice(1).map(instance => {
                     const propertiesRegex = /(?:\(([^)]+)\))/g;
-                    const propertiesMatch = item.match(propertiesRegex);
+                    const propertiesMatch = instance.match(propertiesRegex);
 
-                    const name = item.replace(propertiesRegex, '').trim();
+                    const item = instance.replace(propertiesRegex, '').trim();
                     const properties = propertiesMatch ? propertiesMatch.map(prop => prop.trim().slice(1, -1).toLowerCase()) : [];
 
-                    return { name, properties };
+                    return { item, properties };
                 });
 
                 ret['menu'] = menuItems;
@@ -95,8 +96,8 @@ function objectifier(venue, html) {
 
 };
 
-export async function DiningObject(){
-    return Get(url).then(data =>{
+export async function DiningObject() {
+    return Get(url).then(data => {
         const result = {}
 
         // console.log(data)
@@ -110,8 +111,8 @@ export async function DiningObject(){
         // var ScienceCenterObject = {};
         var KohlbergObject = {};
 
-        if(dc){
-            for(let menu of dc){
+        if (dc) {
+            for (let menu of dc) {
                 let title = menu.title.toLowerCase()
                 let time = menu.short_time.split(' ').filter(x => x !== '-');
                 DiningCenterObject[title] = objectifier('sharples', menu.html_description);
@@ -120,14 +121,20 @@ export async function DiningObject(){
             };
         }
 
-        if(es){
+        if (es) {
+            let time = es.short_time.split(' ').filter(x => x !== '-');
             EssiesObject = objectifier('essies', es.description);
+            EssiesObject['start'] = time[0]
+            EssiesObject['end'] = time[1]
         }
 
         // ScienceCenterObject = objectifier('science_center', sc.html_description);
-        
-        if(kb){
+
+        if (kb) {
+            let time = kb.short_time.split(' ').filter(x => x !== '-');
             KohlbergObject = objectifier('kohlberg', kb.html_description);
+            KohlbergObject['start'] = time[0]
+            KohlbergObject['end'] = time[1]
         }
 
         result["Dining Center"] = DiningCenterObject;
