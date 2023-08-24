@@ -1,5 +1,5 @@
 # Swat Dining Object
-Version: v1.5.0
+Version: v1.5.1
 
 Big thank you to Jesse Li for helping for "unscuffing" v1.2.0!
 

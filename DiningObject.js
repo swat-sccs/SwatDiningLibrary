@@ -31,7 +31,6 @@ function objectifier(venue, html) {
                 return items.split(',').map(item => {
                     let properties = item.match(/::(.*?)::/g) || [];
                     properties = properties.map(prop => prop.replace(/::/g, '').replace(/ /g, '').trim())
-                    console.log(properties)
                     properties = acceptedProperties.filter(item => properties.includes(item));
                     return {
                         item: item.replace(/::(.*?)::/g, '').trim(),
