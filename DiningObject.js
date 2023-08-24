@@ -6,6 +6,10 @@ async function Get(url) {
 
 function objectifier(venue, html) {
     const ret = {};
+    const acceptedProperties = ["vegan", "vegetarian", "halal",
+        "glutenfree", "alcohol", "egg", "fish", "milk",
+        "peanut", "sesame", "shellfish", "soy", "treenut",
+        "wheat", "beta"];
     switch (venue) {
         case 'sharples':
             // create a dummy div element to hold the HTML
@@ -23,12 +27,15 @@ function objectifier(venue, html) {
                     "fried rice", "curry", "aloo gobi", "pizza", "vindaloo", "cod", "fish", "pollock",
                     "falafel", "catfish", "quesadilla", "pancake", "waffle", "tempeh", "tofu",
                     "seitan", "pollock", "masala", "lo mein", "chow mein", "pad thai", "pasta",
-                    "mahi", "bean bake", "catfish", "risotto", "meatloaf"];
+                    "mahi", "bean bake", "catfish", "risotto", "meatloaf", "bibimbap"];
                 return items.split(',').map(item => {
-                    const properties = item.match(/::(.*?)::/g) || [];
+                    let properties = item.match(/::(.*?)::/g) || [];
+                    properties = properties.map(prop => prop.replace(/::/g, '').replace(/ /g, '').trim())
+                    console.log(properties)
+                    properties = acceptedProperties.filter(item => properties.includes(item));
                     return {
                         item: item.replace(/::(.*?)::/g, '').trim(),
-                        properties: properties.map(prop => prop.replace(/::/g, '').replace(/ /g, '').trim())
+                        properties: properties
                     }
                 }).sort((a, b) => {
                     const aScore = entreeKeywords.filter(keyword => a.item.toLowerCase().includes(keyword)).length;
