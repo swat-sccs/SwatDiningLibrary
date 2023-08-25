@@ -27,7 +27,7 @@ function objectifier(venue, html) {
                     "fried rice", "curry", "aloo gobi", "pizza", "vindaloo", "cod", "fish", "pollock",
                     "falafel", "catfish", "quesadilla", "pancake", "waffle", "tempeh", "tofu",
                     "seitan", "pollock", "masala", "lo mein", "chow mein", "pad thai", "pasta",
-                    "mahi", "bean bake", "catfish", "risotto", "meatloaf", "bibimbap"];
+                    "mahi", "bean bake", "catfish", "risotto", "meatloaf", "bibimbap", "ham"];
                 return items.split(',').map(item => {
                     let properties = item.match(/::(.*?)::/g) || [];
                     properties = properties.map(prop => prop.replace(/::/g, '').replace(/ /g, '').trim())
