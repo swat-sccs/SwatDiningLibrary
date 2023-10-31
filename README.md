@@ -1,3 +1,5 @@
+# REPO IS NOW DEPRECATED IN FAVOR OF THE DINING API REPO
+
 # Swat Dining Object
 Version: v1.5.1
 
